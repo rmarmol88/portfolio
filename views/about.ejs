@@ -1,0 +1,33 @@
+<%- include("partials/head") %>
+<%- include("partials/myNavbar") %>
+
+<div class="firstElement" id="aboutContainer">
+    <h2>About Me</h2>
+    <p class="fadeIn">
+        I went to Cal State Fullerton and obtained a Bachelors Degree in Computer Engineering.  
+        During my studies, I was working as tech support in the call center.  
+        On my senior year I got an internship to develop an HTML GUI for a video media server.  
+        Then I got hired at Panasonic Avionics as a test engineer for the In-flight 
+        Entertainment Systems.  Now I am working as a Test Engineer at Safran working on 
+        manufacturing software for In-flight Entertainment.  I am intrigued with developing 
+        and this is my Portfolio!
+    </p>
+</div>
+
+<div id="skillsContainer">
+    <h2>Computer Skills</h2>
+
+    <!-- passing by array of skill object from index.js -->
+    <% skills.forEach((skill) => { %>
+        <div>
+            <p class="skillName"> <%= skill.name %> </p>
+            <div class="skillContainer">
+                <div class="skills <%= skill.name %>" > <%= skill.value %> </div>
+            </div>
+        </div>
+        
+    <% }); %>
+    
+</div>
+
+<%- include("partials/footer") %>
