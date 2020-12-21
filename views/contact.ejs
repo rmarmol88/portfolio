@@ -16,7 +16,12 @@
             <% } 
             else { %>
                 <h3 id="thankYouMessage">
-                    Thank you <%= fname %> for submitting the form, I will contact you at <%= email %> ASAP!
+                    <% if (!spam) { %>
+                        Thank you <%= fname %> for submitting the form, I will contact you at <%= email %> ASAP!
+                    <% }
+                    else { %>
+                        I got the request <%= fname %>, I will contact you at <%= email %> ASAP.  No need to resubmit the form or refresh the browser.
+                    <% } %>
                 </h3>
             <% } %>
         </div>

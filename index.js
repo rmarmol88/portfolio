@@ -1,6 +1,19 @@
 const express = require("express");
 const app = express();
 const path = require("path");
+const mongoose = require("mongoose");
+const Skill = require("./models/skill");    // mongoose skill schema and model
+const Message = require("./models/message");    // mongoose request schema and model
+
+//connect to mongo db
+mongoose.connect('mongodb://localhost:27017/portfolio', {useNewUrlParser: true, useUnifiedTopology: true})
+    .then(() => {
+        console.log("connected to mongodb");
+    })
+    .catch( err => {
+        console.log("error connecting to mongo");
+        console.log("err");
+});
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true}));
@@ -16,20 +29,12 @@ app.get("/", (req, res) => {
 });
 
 // about me page
-app.get("/about", (req, res) => {
+app.get("/about", async (req, res) => {
     const name = "about";
-    const skills = [
-        {name: "Google", value: "100%"},
-        {name: "JavaScript", value: "65%"},
-        {name: "HTML", value: "65%"},
-        {name: "Linux", value: "65%"},
-        {name: "C++", value: "60%"},
-        {name: "Bash", value: "50%"},
-        {name: "CSS", value: "50%"},
-        {name: "Node.js", value: "50%"},
-        {name: "Express.js", value: "50%"},
-        {name: "MySQL", value: "40%"},
-        {name: "Mongoose", value: "40%"}];
+    // finding skills from portfolio db
+    let skills = await Skill.find({});
+    skills.sort(sortFunction);
+    // console.log(skills);
     res.render(name, {name: name, skills: skills});
 });
 
@@ -39,13 +44,33 @@ app.get("/contact", (req, res) => {
     res.render(name, {name: name, formSubmit: formSubmit});
 });
 
-app.post("/contact", (req, res) => {
+let postRequests = [];
+app.post("/contact", async (req, res) => {
     // post data in req.body
     const name = "contact";
-    const formSubmit = true;
     const { fname, lname, email, message } = req.body;
-    console.log(`Thank you ${fname} ${lname} we will email ${email} your message!`);
-    res.render(name, {name: name, formSubmit: formSubmit, fname: fname, email: email});
+    const formSubmit = true;
+    let spam = false;
+    postRequests.push(req.body);
+    console.log(postRequests);
+    if (JSON.stringify(postRequests[0]) != JSON.stringify(postRequests[1])) {
+        // not spam, update db
+        spam = false;
+        console.log(`Thank you ${fname} ${lname} we will email ${email} your message!`);
+        console.log("GOOD, lets update db");
+        let newMessage = new Message(req.body);
+        await newMessage.save();
+        if (postRequests.length > 1){
+            postRequests.shift();
+        }
+    }
+    else {
+        // spam, do not update the db
+        spam = true;
+        console.log("spam attack");
+        postRequests.shift();
+    }
+    res.render(name, {name: name, formSubmit: formSubmit, fname: fname, email: email, spam:spam});
 });
 
 // path for everything else
@@ -57,3 +82,17 @@ app.get("*", (req, res) => {
 app.listen(3000, () => {
     console.log("Listening on 3000");
 });
+
+function sortFunction(a, b){
+    let first = parseInt(a.value.replace("%", ""));
+    let second = parseInt(b.value.replace("%", ""));
+    if (first > second){
+        // console.log(a.value + " > " + b.value);
+        return -1;
+    } 
+    if (first < second) {
+        // console.log(a.value + " < " + b.value);
+        return 1;
+    }
+    return 0;
+};
