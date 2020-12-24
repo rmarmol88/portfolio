@@ -34,14 +34,22 @@ app.get("/about", async (req, res) => {
     // finding skills from portfolio db
     let skills = await Skill.find({});
     skills.sort(sortFunction);
-    // console.log(skills);
     res.render(name, {name: name, skills: skills});
 });
 
 app.get("/contact", (req, res) => {
     const name = "contact";
-    const formSubmit = false;
-    res.render(name, {name: name, formSubmit: formSubmit});
+    let formSubmit = false;
+    formSubmit = req.query.formSubmit;
+    if (formSubmit) {
+        let fname = req.query.fname;
+        let email = req.query.email;
+        let spam = req.query.spam;
+        res.render(name, {name: name, formSubmit: formSubmit, fname: fname, email: email, spam:spam});
+    }
+    else {
+        res.render(name, {name: name, formSubmit: formSubmit});
+    }
 });
 
 let postRequests = [];
@@ -70,7 +78,7 @@ app.post("/contact", async (req, res) => {
         console.log("spam attack");
         postRequests.shift();
     }
-    res.render(name, {name: name, formSubmit: formSubmit, fname: fname, email: email, spam:spam});
+    res.redirect(`/contact?formSubmit=${formSubmit}&fname=${fname}&email=${email}&spam=${spam}`);
 });
 
 // path for everything else

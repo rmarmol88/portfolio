@@ -16,7 +16,7 @@
             <% } 
             else { %>
                 <h3 id="thankYouMessage">
-                    <% if (!spam) { %>
+                    <% if (spam == "false") { %>
                         Thank you <%= fname %> for submitting the form, I will contact you at <%= email %> ASAP!
                     <% }
                     else { %>
