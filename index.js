@@ -45,7 +45,7 @@ app.get("/contact", (req, res) => {
         let fname = req.query.fname;
         let email = req.query.email;
         let spam = req.query.spam;
-        res.render(name, {name: name, formSubmit: formSubmit, fname: fname, email: email, spam:spam});
+        res.render(name, {name: name, formSubmit: formSubmit, fname: fname, email: email, spam: spam});
     }
     else {
         res.render(name, {name: name, formSubmit: formSubmit});
