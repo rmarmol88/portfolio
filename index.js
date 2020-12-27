@@ -1,12 +1,18 @@
 const express = require("express");
 const app = express();
+const dotenv = require("dotenv");
 const path = require("path");
 const mongoose = require("mongoose");
 const Skill = require("./models/skill");    // mongoose skill schema and model
 const Message = require("./models/message");    // mongoose request schema and model
 
+// connect to .env
+dotenv.config();
+
 //connect to mongo db
-mongoose.connect('mongodb://localhost:27017/portfolio', {useNewUrlParser: true, useUnifiedTopology: true})
+// local mongo url: 'mongodb://localhost:27017/portfolio'
+const dbUrl = process.env.DB_URL;   // connect to atlas mongo db
+mongoose.connect(dbUrl, {useNewUrlParser: true, useUnifiedTopology: true})
     .then(() => {
         console.log("connected to mongodb");
     })
@@ -86,9 +92,10 @@ app.get("*", (req, res) => {
     res.render("home");
 });
 
-// app is listening to port 3000
-app.listen(3000, () => {
-    console.log("Listening on 3000");
+// app is listening to port env port or 3000
+const port = process.env.PORT || 3000 ;
+app.listen(port, () => {
+    console.log(`listening on port: ${port}`);
 });
 
 function sortFunction(a, b){

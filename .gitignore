@@ -1,0 +1,3 @@
+# files to ignore to git
+.env
+node_modules
