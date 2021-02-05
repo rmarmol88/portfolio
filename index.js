@@ -1,3 +1,9 @@
+if (process.env.NODE_ENV != "production") {
+    // if not in production environment, use .env
+    console.log("not in prod");
+    require("dotenv").config();
+}
+
 const express = require("express");
 const app = express();
 const dotenv = require("dotenv");
@@ -6,12 +12,9 @@ const mongoose = require("mongoose");
 const Skill = require("./models/skill");    // mongoose skill schema and model
 const Message = require("./models/message");    // mongoose request schema and model
 
-// connect to .env
-dotenv.config();
-
 //connect to mongo db
 // local mongo url: 'mongodb://localhost:27017/portfolio'
-const dbUrl = process.env.DB_URL;   // connect to atlas mongo db
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/portfolio';   // connect to atlas mongo db
 mongoose.connect(dbUrl, {useNewUrlParser: true, useUnifiedTopology: true})
     .then(() => {
         console.log("connected to mongodb");
