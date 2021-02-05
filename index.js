@@ -13,7 +13,6 @@ dotenv.config();
 const dbUrl = (process.env.NODE_ENV == "local") ?
             'mongodb://localhost:27017/portfolio' :
             process.env.DB_URL
-console.log(dbUrl)
 
 //connect to mongo db
 // local mongo url: 'mongodb://localhost:27017/portfolio'
