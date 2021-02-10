@@ -92,9 +92,17 @@ app.post("/contact", async (req, res) => {
     res.redirect(`/contact?formSubmit=${formSubmit}&fname=${fname}&email=${email}&spam=${spam}`);
 });
 
+// hidden page to show messages
+app.get("/messages", async (req, res) => {
+    const name = "messages";
+    // find messages from portfolio db
+    let messages = await Message.find({});
+    res.render(name, {name: name, messages: messages});
+});
+
 // path for everything else
 app.get("*", (req, res) => {
-    res.render("home");
+    res.redirect("/");
 });
 
 // app is listening to port env port or 3000

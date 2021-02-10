@@ -1,0 +1,29 @@
+<%- include("partials/head") %>
+<%- include("partials/myNavbar") %>
+
+<div class="mainContainer firstElement">
+    <h2>my messages</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>first name</th>
+                <th>last name</th>
+                <th>email</th>
+                <th>message</th>
+            </tr>
+        </thead>
+
+    <% for (let message of messages){ %>
+        <tbody>
+            <tr>
+                <td><%= message.fname %></td>
+                <td><%= message.lname %></td>
+                <td><%= message.email %></td>
+                <td><%= message.message %></td>
+            </tr> 
+        </tbody>       
+    <% } %>        
+    </table>
+</div>
+
+<%- include("partials/footer") %>

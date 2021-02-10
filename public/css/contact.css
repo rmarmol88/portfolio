@@ -8,11 +8,6 @@
     margin-bottom: 20px;
 }
 
-.container {
-    display: flex;
-    justify-content: space-evenly;
-}
-
 #formContainer {
     width: 50%;
     min-width: 400px;

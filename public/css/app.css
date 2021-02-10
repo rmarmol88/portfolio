@@ -61,6 +61,17 @@ header nav ul li a.activeLi {
     text-decoration: underline;
 }
 
+.mainContainer {
+    width: 75%;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
 #mobileMenu {
     width: 20px;
     height: 20px;
