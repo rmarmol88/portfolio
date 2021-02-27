@@ -100,6 +100,16 @@ app.get("/messages", async (req, res) => {
     res.render(name, {name: name, messages: messages});
 });
 
+// using post to delete multiple id's.  delete request is best for one id at a time.. LAME 
+app.post("/messages", async (req, res) => {
+    let idArray = req.body;
+    console.log(idArray);
+    for (let id of idArray){
+        let deletedProduct = await Message.findByIdAndDelete(id);
+    }
+    // res.redirect("/messages"); not needed becuase I am using JS to post data...
+});
+
 // path for everything else
 app.get("*", (req, res) => {
     res.redirect("/");

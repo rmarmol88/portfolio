@@ -2,27 +2,31 @@
 <%- include("partials/myNavbar") %>
 
 <div class="mainContainer firstElement">
-    <h2>my messages</h2>
+    <div id="messagesHeader">
+        <h2>my messages</h2>
+        <input id="deleteBtn" type="button" value="delete">
+    </div>
     <table>
         <thead>
             <tr>
+                <th><input id="checkall" type="checkbox"></th>
                 <th>first name</th>
                 <th>last name</th>
                 <th>email</th>
                 <th>message</th>
             </tr>
         </thead>
-
+    <tbody>
     <% for (let message of messages){ %>
-        <tbody>
-            <tr>
-                <td class="fname"><%= message.fname %></td>
-                <td class="lname"><%= message.lname %></td>
-                <td class="email"><%= message.email %></td>
-                <td class="message"><%= message.message %></td>
-            </tr> 
-        </tbody>       
-    <% } %>        
+        <tr>
+            <td class="checkbox"><input value="<%= message._id %>" type="checkbox"></td>
+            <td class="fname"><%= message.fname %></td>
+            <td class="lname"><%= message.lname %></td>
+            <td class="email"><%= message.email %></td>
+            <td class="message"><%= message.message %></td>
+        </tr>  
+    <% } %>
+    </tbody>  
     </table>
 </div>
 
