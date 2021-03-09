@@ -1,0 +1,63 @@
+#simonsaysContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#startSimonsays {
+  margin-top: 20px;
+  width: 100px;
+}
+
+#circle {
+  display: block;
+  padding: 0;
+  width: 200px;
+  height: 200px;
+  border: 1px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.quarter {
+  display: inline-block;
+  float: left;
+  margin: 0;
+  padding: 0;
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+  
+#circleQ1 {
+  background-color: rgb(163, 163, 30);
+}
+  
+#circleQ2 {
+  background-color: rgb(29, 29, 163);
+}
+  
+#circleQ3 {
+  background-color: rgb(163, 35, 35);
+}
+  
+#circleQ4 {
+  background-color:rgb(27, 148, 27);
+}
+
+#circleQ1.active {
+  background-color: rgb(247, 247, 162);
+}
+
+#circleQ2.active {
+  background-color: rgb(167, 167, 253);
+}
+
+#circleQ3.active {
+  background-color: rgb(252, 166, 166);
+}
+
+#circleQ4.active {
+  background-color: rgb(165, 253, 165);
+}

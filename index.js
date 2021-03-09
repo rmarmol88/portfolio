@@ -48,6 +48,12 @@ app.get("/about", async (req, res) => {
     res.render(name, {name: name, skills: skills});
 });
 
+// projects
+app.get("/projects", (req, res) => {
+    const name = "projects";
+    res.render(name, {name: name});
+});
+
 app.get("/contact", (req, res) => {
     const name = "contact";
     let formSubmit = false;
