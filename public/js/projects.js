@@ -199,10 +199,6 @@ function randomNumber(max) {
     return Math.floor(Math.random() * max) + 1  
 }
 
-async function playSimonSound(sound) {
-    sound.play();
-}
-
 activateProjects();
 startSimonSays();
 createSimonSays();
