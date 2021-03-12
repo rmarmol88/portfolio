@@ -1,10 +1,11 @@
-// make project active on navbar
-function activateProjects() {
-    const homeNavLi = document.getElementById("homeNavLi");
-    const projectNavLi = document.getElementById("projectsNavLi"); 
-    homeNavLi.classList.toggle("activeLi");
-    projectNavLi.classList.toggle("activeLi");
+// check if mobile
+let mobile = false;
+if( /Android|webOS|iPhone|iPad|Mac|Macintosh|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    mobile = true;
 }
+
+// global delay function
+const BRIGHT_DELAY = ms => new Promise(res => setTimeout(res, ms));
 
 // global variables for simon says
 let playSimonSays = false;
@@ -13,29 +14,40 @@ let patternClicked = [];
 let simonSaysCount = 0;
 let simonClickCount = 0;
 
+// make project active on navbar
+function activateProjects() {
+    const homeNavLi = document.getElementById("homeNavLi");
+    const projectNavLi = document.getElementById("projectsNavLi"); 
+    homeNavLi.classList.toggle("activeLi");
+    projectNavLi.classList.toggle("activeLi");
+}
+
 function startSimonSays() {
     const startButton = document.querySelector("#startSimonsays"); 
+    const simonSaysLabel = document.querySelector("#simonSaysLabel");
     startButton.addEventListener("click", () => {
         if (!playSimonSays) {
             playSimonSays = true;
             console.log("start simon says");
-            startButton.innerHTML = "stop";
+            startButton.innerHTML = "STOP";
+            simonSaysLabel.innerHTML = "PLAYING SIMON SAYS"
             startSimonLoop();
         }
         else {
             playSimonSays = false;
-            console.log("stop simon says");
-            startButton.innerHTML = "start";
             patternClicked = [];
             patternRequested = [];
             simonClickCount = 0;
             simonSaysCount = 0;
+            console.log("stop simon says");
+            startButton.innerHTML = "START";
+            simonSaysLabel.innerHTML = "STOPPED SIMON SAYS";
         }
     });
 }
 
 function createSimonSays() {
-    const BRIGHT_DELAY = 500;                               // delay for how long to leave light bright
+    const BRIGHT_DELAY_AMOUNT = 500;                               // delay for how long to leave light bright
     const chant = new Audio("/js/sounds/chant.wav");
     const clap = new Audio("/js/sounds/clap.wav");
     const kick = new Audio("/js/sounds/kick.wav");
@@ -44,56 +56,56 @@ function createSimonSays() {
     circleQ1.addEventListener("click", () => {
         // yellowClicked = true;
         let playChant = chant.cloneNode();
-        playChant.play();
+        if (!mobile) playChant.play();
         patternClicked.push(1);
         circleQ1.classList.toggle("active");
         // console.log("yellow clicked, value 1 pushed");
         console.log("checking with Simon", patternClicked);
         setTimeout( () => {
             circleQ1.classList.toggle("active");
-        }, BRIGHT_DELAY);
+        }, BRIGHT_DELAY_AMOUNT);
         checkSimon();
     });
     const circleQ2 = document.querySelector("#circleQ2");   // circleQ2 , blue circle quadrant 2
     circleQ2.addEventListener("click", () => {
         // blueClicked = true;
         let playClap = clap.cloneNode();
-        playClap.play();
+        if (!mobile) playClap.play();
         patternClicked.push(2);
         circleQ2.classList.toggle("active");
         // console.log("blue clicked, value 2 pushed");
         console.log("checking with Simon", patternClicked);
         setTimeout( () => {
             circleQ2.classList.toggle("active");
-        }, BRIGHT_DELAY);
+        }, BRIGHT_DELAY_AMOUNT);
         checkSimon();
     });
     const circleQ3 = document.querySelector("#circleQ3");   // circleQ3 , red circle quadrant 3
     circleQ3.addEventListener("click", () => {
         // redClicked = true;
         let playKick = kick.cloneNode();
-        playKick.play();
+        if (!mobile) playKick.play();
         patternClicked.push(3);
         circleQ3.classList.toggle("active");
         // console.log("red clicked, value 3 pushed");
         console.log("checking with Simon", patternClicked);
         setTimeout( () => {
             circleQ3.classList.toggle("active");
-        }, BRIGHT_DELAY);
+        }, BRIGHT_DELAY_AMOUNT);
         checkSimon();
     });
     const circleQ4 = document.querySelector("#circleQ4");   // circleQ4 , green circle quadrant 4
     circleQ4.addEventListener("click", () => {
         // greenClicked = true;
         let playSnare = snare.cloneNode();
-        playSnare.play();
+        if (!mobile) playSnare.play();
         patternClicked.push(4);
         circleQ4.classList.toggle("active");
         // console.log("green clicked, value 4 pushed");
         console.log("checking with Simon", patternClicked);
         setTimeout( () => {
             circleQ4.classList.toggle("active");
-        }, BRIGHT_DELAY);
+        }, BRIGHT_DELAY_AMOUNT);
         checkSimon();
     });
 }
@@ -110,7 +122,6 @@ function startSimonLoop() {
 async function showSimonArray() {
     simonClickCount = 0;
     const BRIGHT_DELAY_AMOUNT = 500;                          // delay to leave light bright
-    const BRIGHT_DELAY = ms => new Promise(res => setTimeout(res, ms));
     const chant = new Audio("/js/sounds/chant.wav");
     const clap = new Audio("/js/sounds/clap.wav");
     const kick = new Audio("/js/sounds/kick.wav");
@@ -121,39 +132,41 @@ async function showSimonArray() {
     const circleQ4 = document.querySelector("#circleQ4");
     for (let num of patternRequested) {
         console.log("Showing Simon value: " + num);
-        switch (num) {
-            case 1:
-                let playChant = chant.cloneNode();
-                circleQ1.classList.toggle("active");
-                playChant.play();
-                await BRIGHT_DELAY(BRIGHT_DELAY_AMOUNT);
-                circleQ1.classList.toggle("active");
-                chant.pause();
-                break;
-            case 2:
-                let playClap = clap.cloneNode();
-                circleQ2.classList.toggle("active");
-                playClap.play();
-                await BRIGHT_DELAY(BRIGHT_DELAY_AMOUNT);
-                circleQ2.classList.toggle("active");
-                clap.pause();
-                break;
-            case 3: 
-                let playKick = kick.cloneNode();
-                circleQ3.classList.toggle("active");
-                playKick.play();
-                await BRIGHT_DELAY(BRIGHT_DELAY_AMOUNT);
-                circleQ3.classList.toggle("active");
-                kick.pause();
-                break;
-            case 4: 
-                let playSnare = snare.cloneNode();
-                circleQ4.classList.toggle("active");
-                playSnare.play();  
-                await BRIGHT_DELAY(BRIGHT_DELAY_AMOUNT);
-                circleQ4.classList.toggle("active");
-                snare.pause();
-                break;
+        if (playSimonSays) {
+            switch (num) {
+                case 1:
+                    let playChant = chant.cloneNode();
+                    circleQ1.classList.toggle("active");
+                    if (!mobile) playChant.play();
+                    await BRIGHT_DELAY(BRIGHT_DELAY_AMOUNT);
+                    circleQ1.classList.toggle("active");
+                    chant.pause();
+                    break;
+                case 2:
+                    let playClap = clap.cloneNode();
+                    circleQ2.classList.toggle("active");
+                    if (!mobile) playClap.play();
+                    await BRIGHT_DELAY(BRIGHT_DELAY_AMOUNT);
+                    circleQ2.classList.toggle("active");
+                    clap.pause();
+                    break;
+                case 3: 
+                    let playKick = kick.cloneNode();
+                    circleQ3.classList.toggle("active");
+                    if (!mobile) playKick.play();
+                    await BRIGHT_DELAY(BRIGHT_DELAY_AMOUNT);
+                    circleQ3.classList.toggle("active");
+                    kick.pause();
+                    break;
+                case 4: 
+                    let playSnare = snare.cloneNode();
+                    circleQ4.classList.toggle("active");
+                    if (!mobile) playSnare.play();  
+                    await BRIGHT_DELAY(BRIGHT_DELAY_AMOUNT);
+                    circleQ4.classList.toggle("active");
+                    snare.pause();
+                    break;
+            }
         }
         await BRIGHT_DELAY(BRIGHT_DELAY_AMOUNT);
     }
@@ -161,8 +174,8 @@ async function showSimonArray() {
 
 async function checkSimon() {
     const BRIGHT_DELAY_AMOUNT = 1000;                          // delay to leave light bright
-    const BRIGHT_DELAY = ms => new Promise(res => setTimeout(res, ms));
     const startButton = document.querySelector("#startSimonsays");
+    const simonSaysLabel = document.querySelector("#simonSaysLabel");
     let wrong = false;
     if (patternRequested[simonClickCount] == patternClicked[simonClickCount]) {
         // console.log("Pattern clicked: " + patternClicked[simonClickCount]);
@@ -179,12 +192,13 @@ async function checkSimon() {
     if (wrong) {
         // get another number
         // end the game
-        startButton.innerHTML = "start";
         playSimonSays = false;
         patternClicked = [];
         patternRequested = [];
         simonClickCount = 0;
         simonSaysCount = 0;
+        startButton.innerHTML = "START";
+        simonSaysLabel.innerHTML = "YOU LOST, CLICK START TO PLAY AGAIN"
     }
     else if (patternRequested.length == patternClicked.length) {
         simonSaysCount++;
