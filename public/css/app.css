@@ -11,6 +11,18 @@ body {
 
 button {
     cursor: pointer;
+    background-color: teal;
+    border-color: teal;
+    color: white;
+    font-size: 1rem;
+    border-radius: 5px;
+    line-height: 1.5;
+    border: 1px solid grey;
+}
+
+button:focus {
+    box-shadow: 0 0 3pt 2pt turquoise;
+    outline: none;
 }
 
 header {
@@ -92,6 +104,40 @@ header nav ul li a.activeLi {
 
 .firstElement {
     padding-top: 50px;
+}
+
+.formContainer {
+    width: 50%;
+    min-width: 400px;
+}
+
+form input,
+form textarea {
+    margin: 10px 10px 10px 0px;
+    font-size: 1rem;
+    border-radius: 5px;
+    line-height: 1.5;
+    border: 1px solid grey;
+}
+
+input,
+select {
+    font-size: 1rem;
+    border-radius: 5px;
+    line-height: 1.5;
+    border: 1px solid grey;
+}
+
+form input:focus,
+form textarea:focus {
+    box-shadow: 0 0 3pt 2pt turquoise;
+    outline: none;
+}
+
+input:focus,
+select:focus {
+    box-shadow: 0 0 3pt 2pt turquoise;
+    outline: none;
 }
 
 .fadeIn {

@@ -28,6 +28,7 @@ function startSimonSays() {
     startButton.addEventListener("click", () => {
         if (!playSimonSays) {
             playSimonSays = true;
+            patternClicked = [];
             console.log("start simon says");
             startButton.innerHTML = "STOP";
             simonSaysLabel.innerHTML = "PLAYING SIMON SAYS"
@@ -64,7 +65,7 @@ function createSimonSays() {
         setTimeout( () => {
             circleQ1.classList.toggle("active");
         }, BRIGHT_DELAY_AMOUNT);
-        checkSimon();
+        if (playSimonSays) checkSimon();
     });
     const circleQ2 = document.querySelector("#circleQ2");   // circleQ2 , blue circle quadrant 2
     circleQ2.addEventListener("click", () => {
@@ -78,7 +79,7 @@ function createSimonSays() {
         setTimeout( () => {
             circleQ2.classList.toggle("active");
         }, BRIGHT_DELAY_AMOUNT);
-        checkSimon();
+        if (playSimonSays) checkSimon();
     });
     const circleQ3 = document.querySelector("#circleQ3");   // circleQ3 , red circle quadrant 3
     circleQ3.addEventListener("click", () => {
@@ -92,7 +93,7 @@ function createSimonSays() {
         setTimeout( () => {
             circleQ3.classList.toggle("active");
         }, BRIGHT_DELAY_AMOUNT);
-        checkSimon();
+        if (playSimonSays) checkSimon();
     });
     const circleQ4 = document.querySelector("#circleQ4");   // circleQ4 , green circle quadrant 4
     circleQ4.addEventListener("click", () => {
@@ -106,7 +107,7 @@ function createSimonSays() {
         setTimeout( () => {
             circleQ4.classList.toggle("active");
         }, BRIGHT_DELAY_AMOUNT);
-        checkSimon();
+        if (playSimonSays) checkSimon();
     });
 }
 
@@ -209,6 +210,60 @@ async function checkSimon() {
     }
 }
 
+// variables and functions for bettingCalculator
+function createBettingCalculator() {
+    const betOdd = document.querySelector("#betOdd");
+    const impliedOdd = document.querySelector("#impliedOdds");
+    const usersEdge = document.querySelector("#usersEdge");
+    let bettingOdd, impliedProbability;
+    betOdd.addEventListener("keyup", () => {
+        bettingOdd = parseInt(betOdd.value);
+        // calculate odds
+        if (bettingOdd > 0) {
+            impliedProbability = (100/(bettingOdd + 100)*100).toFixed(2);
+        }
+        else if (bettingOdd < 0) {
+            bettingOdd = -bettingOdd;
+            impliedProbability = (bettingOdd/(bettingOdd + 100)*100).toFixed(2);
+        }
+        impliedOdd.value = impliedProbability + "%";
+        usersEdge.value = `You need your bet to cash more than ${impliedProbability}% to profit`;
+        if (betOdd.value == "") {
+            impliedOdd.value = "";
+            usersEdge.value = "";
+        }
+    });
+}
+
+// variables and function to clear the calculator
+function clearCalculator(){
+    const clearCalcButton = document.querySelector("#clearCalcButton");
+    const calcInputs = document.querySelectorAll(".calcInput");
+    clearCalcButton.addEventListener("click", () => {
+        for (let input of calcInputs) {
+            input.value = "";
+        }
+    });
+}
+
+function getGraph() {
+    const getGraphButton = document.querySelector("#getGraphButton");
+    const chartType = document.querySelector("#chartType");
+    const dataLabels = document.querySelector("#dataLabels");
+    const datasetLabels = document.querySelector("#datasetLabels");
+    const datasetData = document.querySelector("#datasetData");
+    const picContainer = document.querySelector("#picContainer");
+    getGraphButton.addEventListener("click", async () => {
+        let chartTypeValue = chartType.value;
+        let dataLabelsValue = dataLabels.value;
+        let datasetLabelsValue = datasetLabels.value;
+        let datasetDataValue = datasetData.value;
+        // let request = await axios.get(`https://quickchart.io/chart?chart={type: 'bar', data: {labels: ['Q1', 'Q2', 'Q3', 'Q4'], datasets: [{label: 'Revenue',data: [100, 200, 300, 400]}]}}&backgroundColor=white&width=500&height=300&devicePixelRatio=1.0&format=png&version=2.9.3"`);
+        // console.log(request);
+        picContainer.innerHTML = `<img src="https://quickchart.io/chart?chart={type: '${chartTypeValue}', data: {labels: [${dataLabelsValue}], datasets: [{label: '${datasetLabelsValue}',data: [${datasetDataValue}]}]}}&backgroundColor=whitesmoke&width=500&height=300&devicePixelRatio=1.0&format=png&version=2.9.3" alt=""></img>`;
+    });
+}
+
 function randomNumber(max) {
     return Math.floor(Math.random() * max) + 1  
 }
@@ -216,3 +271,6 @@ function randomNumber(max) {
 activateProjects();
 startSimonSays();
 createSimonSays();
+createBettingCalculator();
+clearCalculator();
+getGraph();

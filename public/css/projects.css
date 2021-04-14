@@ -1,7 +1,18 @@
-#simonsaysContainer {
+.projectsContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 10px;
+}
+
+button {
+  width: 100%;
+}
+
+/* Simon says styling */
+#simonSaysButtonRow {
+  display: flex;
+  justify-content: center;
 }
 
 #startSimonsays {
@@ -17,6 +28,7 @@
   border: 1px;
   border-radius: 50%;
   overflow: hidden;
+  margin:auto;
 }
 
 .quarter {
@@ -60,4 +72,58 @@
 
 #circleQ4.active {
   background-color: rgb(165, 253, 165);
+}
+
+/* project form styling */
+
+.projectForm {
+  border: solid grey 1px;
+  border-radius: 15px;
+  background-color: whitesmoke;
+  min-width: 487px;
+}
+
+.containerLabel {
+  margin: 10px;
+}
+
+.formRow {
+  margin: 10px;
+}
+
+.disabled {
+  background-color: lightgrey;
+}
+
+.formRow label {
+  display: inline-block;
+  width: 250px;
+}
+
+/* styling calc */
+
+#usersEdge {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* stling graph stuff */
+#chartType {
+  width: 207px;
+  height: 28px;
+  background-color: white;
+}
+
+#picContainer {
+  margin: 1px;
+  margin-bottom: 3px;
+}
+
+@media (max-width: 768px) {
+  .formInput, 
+  #chartType {
+    box-sizing: border-box;
+    width: 100%;
+  }
+
 }

@@ -8,30 +8,14 @@
     margin-bottom: 20px;
 }
 
-#formContainer {
-    width: 50%;
-    min-width: 400px;
-}
-
 #mapContainer {
     width: 50%;
     display: flex;
 }
 
-form input,
+form input, 
 form textarea {
-    margin: 10px 10px 10px 0px;
     width: 80%;
-    font-size: 1rem;
-    border-radius: 5px;
-    line-height: 1.5;
-    border: 1px solid grey;
-}
-
-form input:focus,
-form textarea:focus {
-    box-shadow: 0 0 3pt 2pt turquoise;
-    outline: none;
 }
 
 #submit {

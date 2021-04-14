@@ -4,16 +4,71 @@
 <div class="mainContainer">
     <h2 class="firstElement">Projects</h2>
     <p>Find my projects on <a href="https://github.com/rmarmol88?tab=repositories" target="_blank">github</a></p>
-    <div id="simonsaysContainer">
+    <div id="simonsaysContainer" class="projectsContainer">
         <h3 id="simonSaysLabel">Play Simon Says</h3>
-        <div id="circle">
-            <div id="circleQ1" class="quarter"></div>
-            <div id="circleQ2" class="quarter"></div>
-            <div id="circleQ3" class="quarter"></div>
-            <div id="circleQ4" class="quarter"></div>
+        <div id="simonSaysForm" class="projectForm">
+            <div class="formRow">
+                <div id="circle">
+                    <div id="circleQ1" class="quarter"></div>
+                    <div id="circleQ2" class="quarter"></div>
+                    <div id="circleQ3" class="quarter"></div>
+                    <div id="circleQ4" class="quarter"></div>
+                </div>
+            </div>
+            <div id="simonSaysButtonRow" class="formRow">
+                <button id="startSimonsays" onclick="this.blur();">START</button>
+            </div>
         </div>
-        <button id="startSimonsays">START</button>
-    </div>    
+    </div>   
+    <div id="bettingCalculatorContainer" class="projectsContainer">
+        <h3 id="bettingCalculatorLabel" class="containerLabel">Betting Calculator</h3>
+        <div id="bettingCalculator" class="projectForm">
+            <div class="formRow">
+                <label for="betOdd">What odd are you getting?</label>                 
+                <input id="betOdd" class="formInput" type="text">
+            </div>
+            <div class="formRow">
+                <label for="impliedOdds">Your implied odds:</label>
+                <input id="impliedOdds" class="formInput disabled" type="text" disabled="disabled">
+            </div>
+            <div class="formRow">
+                <input id="usersEdge" class="formInput disabled" type="text" disabled="disabled">
+            </div>
+            <div class="formRow">
+                <button id="clearCalcButton" onclick="this.blur();">CLEAR</button>
+            </div>
+        </div>
+    </div> 
+    <div class="projectsContainer">
+        <h3 id="graphGeneratorLabel" class="containerLabel" >Graph Generator</h3>
+        <div id="graphGenerator" class="projectForm">
+            <div class="formRow">
+                <label for="chartType">Select the chart type:</label>                 
+                <select class="formInput" name="chartType" id="chartType">
+                    <option value="bar">BAR</option>
+                    <option value="line">LINE</option>
+                    <option value="pie">PIE</option>
+                </select>
+            </div>
+            <div class="formRow">
+                <label for="dataLabels">Chart Data Labels:</label>
+                <input id="dataLabels" class="formInput" type="text" required>
+            </div>
+            <div class="formRow">
+                <label for="datasetLabels">Dataset Labels:</label>
+                <input id="datasetLabels" class="formInput" type="text" required>
+            </div>
+            <div class="formRow">
+                <label for="datasetData">Dataset Data:</label>
+                <input id="datasetData" class="formInput" type="text" required>
+            </div>
+            <div class="formRow">
+                <button id="getGraphButton" onclick="this.blur();">GET GRAPH</button>
+            </div>
+            <div id="picContainer">
+            </div>
+        </div>
+    </div>
 
 </div>
 
