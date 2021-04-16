@@ -254,13 +254,21 @@ function getGraph() {
     const datasetData = document.querySelector("#datasetData");
     const picContainer = document.querySelector("#picContainer");
     getGraphButton.addEventListener("click", async () => {
+        const browserWidth  = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        // const browserHeight = window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight;   only using the width to adjust the size of the graph
         let chartTypeValue = chartType.value;
         let dataLabelsValue = dataLabels.value;
         let datasetLabelsValue = datasetLabels.value;
         let datasetDataValue = datasetData.value;
-        // let request = await axios.get(`https://quickchart.io/chart?chart={type: 'bar', data: {labels: ['Q1', 'Q2', 'Q3', 'Q4'], datasets: [{label: 'Revenue',data: [100, 200, 300, 400]}]}}&backgroundColor=white&width=500&height=300&devicePixelRatio=1.0&format=png&version=2.9.3"`);
+        let graphWidth = 480;                                                    // width of image/graph
+        let graphHeight = 288;                                                   // height of image/graph
+        if ( browserWidth < 690 ) {
+            graphWidth = browserWidth * 0.65;                                    // adjust to the width of the browser
+            graphHeight = browserWidth * 0.6;                                    // height is 3/5 of the width
+        }
+        // let request = await axios.get(`https://quickchart.io/chart?chart={type: 'bar', data: {labels: ['Q1', 'Q2', 'Q3', 'Q4'], datasets: [{label: 'Revenue',data: [100, 200, 300, 400]}, {label: 'Tax',data: [10, 20, 30, 40]}]}}&backgroundColor=white&width=500&height=300&devicePixelRatio=1.0&format=png&version=2.9.3"`);
         // console.log(request);
-        picContainer.innerHTML = `<img src="https://quickchart.io/chart?chart={type: '${chartTypeValue}', data: {labels: [${dataLabelsValue}], datasets: [{label: '${datasetLabelsValue}',data: [${datasetDataValue}]}]}}&backgroundColor=whitesmoke&width=500&height=300&devicePixelRatio=1.0&format=png&version=2.9.3" alt=""></img>`;
+        picContainer.innerHTML = `<img src="https://quickchart.io/chart?chart={type: '${chartTypeValue}', data: {labels: ['${dataLabelsValue}'], datasets: [{label: '${datasetLabelsValue}',data: [${datasetDataValue}]}]}}&backgroundColor=whitesmoke&width=${graphWidth}&height=${graphHeight}&devicePixelRatio=1.0&format=png&version=2.9.3" alt=""></img>`;
     });
 }
 
