@@ -80,7 +80,7 @@ button {
   border: solid grey 1px;
   border-radius: 15px;
   background-color: whitesmoke;
-  min-width: 487px;
+  width: 487px;
 }
 
 .containerLabel {
@@ -121,6 +121,7 @@ button {
 
 @media (max-width: 768px) {
   .formInput, 
+  .projectForm,
   #chartType {
     box-sizing: border-box;
     width: 100%;
