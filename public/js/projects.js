@@ -263,17 +263,6 @@ function activeGraphButtons() {
     });
 }
 
-// function to delete graph row
-function activateDeleteLabelButton () {
-    const deleteDataSetLabelButton = document.querySelectorAll(".deleteLabelButton");
-    const newGraphRows = document.querySelectorAll(".newGraphRow");
-    for (let i = 0;i < deleteDataSetLabelButton.length; i++) {
-        deleteDataSetLabelButton[i].addEventListener("click", () => {
-            newGraphRows[i].remove();
-        });
-    }
-}
-
 // function to add graph data
 function addGraphData() {
     const addGraphDataButton = document.querySelector("#addGraphDataButton"); 
@@ -292,7 +281,19 @@ function addGraphData() {
         else {
             alert("Please add an X and Y value");
         }
+        activateDeleteLabelButton();
     });
+}
+
+// function to delete graph row
+function activateDeleteLabelButton () {
+    const deleteDataSetLabelButton = document.querySelectorAll(".deleteLabelButton");
+    const newGraphRows = document.querySelectorAll(".newGraphRow");
+    for (let i = 0;i < deleteDataSetLabelButton.length; i++) {
+        deleteDataSetLabelButton[i].addEventListener("click", () => {
+            newGraphRows[i].remove();
+        });
+    }
 }
 
 // function to add rows to form of graph maker
