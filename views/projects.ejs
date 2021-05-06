@@ -50,17 +50,27 @@
                     <option value="pie">PIE</option>
                 </select>
             </div>
-            <div class="formRow">
-                <label for="datasetLabels">Dataset Label:</label>
-                <input id="datasetLabels" class="formInput" type="text" placeholder="Food" required>
+            <div id="parentRow">
+                <div id="datasetRow" class="formRow">
+                    <label for="datasetLabels">Dataset Label:</label>
+                    <input id="datasetLabels" class="formInput datasetLabelClass" type="text" placeholder="Food" required>
+                    <button id="addDatasetLabel" onclick="this.blur()">+</button>
+                </div>
+            </div>
+            <div id="xParentRow">
+                <div id="dataLabelRow" class="formRow">
+                    <label for="dataLabels">Data Labels (x axis):</label>
+                    <input id="dataLabels" class="formInput xDataLabel" type="text" placeholder="Dog" required>
+                </div>
+            </div>
+            <div id="yParentRow">
+                <div class="formRow">
+                    <label for="datasetData">Dataset Values (y axis):</label>
+                    <input id="datasetData" class="formInput yDataset" type="text" placeholder="20" required>
+                </div>
             </div>
             <div class="formRow">
-                <label for="dataLabels">Data Labels (x axis):</label>
-                <input id="dataLabels" class="formInput" type="text" placeholder="Dog" required>
-            </div>
-            <div class="formRow">
-                <label for="datasetData">Dataset Values (y axis):</label>
-                <input id="datasetData" class="formInput" type="text" placeholder="20" required>
+                <button id="addGraphDataButton" onclick="this.blur();">ADD DATA</button>
             </div>
             <div class="formRow">
                 <button id="getGraphButton" onclick="this.blur();">GET GRAPH</button>

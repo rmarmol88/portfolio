@@ -246,29 +246,116 @@ function clearCalculator(){
     });
 }
 
+// function to activate the buttons on the graph 
+function activeGraphButtons() {
+    const addDatasetLabel = document.querySelector("#addDatasetLabel");
+    const parentRow = document.querySelector("#parentRow");               
+    addDatasetLabel.addEventListener("click", () =>{
+        const datasetLabels = document.querySelectorAll(".datasetLabelClass");
+        const datasetLabel = datasetLabels[0].value;
+        if (datasetLabel){
+            addGraphRow(parentRow, "datasetLabelClass", datasetLabels);
+        }
+        else {
+            alert ("Please add a value");
+        }
+        activateDeleteLabelButton();
+    });
+}
+
+// function to delete graph row
+function activateDeleteLabelButton () {
+    const deleteDataSetLabelButton = document.querySelectorAll(".deleteLabelButton");
+    const newGraphRows = document.querySelectorAll(".newGraphRow");
+    for (let i = 0;i < deleteDataSetLabelButton.length; i++) {
+        deleteDataSetLabelButton[i].addEventListener("click", () => {
+            newGraphRows[i].remove();
+        });
+    }
+}
+
+// function to add graph data
+function addGraphData() {
+    const addGraphDataButton = document.querySelector("#addGraphDataButton"); 
+    const xParentRow = document.querySelector("#xParentRow");
+    const yParentRow = document.querySelector("#yParentRow");
+    addGraphDataButton.addEventListener("click", () => {
+        const xDataLabels = document.querySelectorAll(".xDataLabel");
+        const yDataset = document.querySelectorAll(".yDataset");
+        const xDataLabel = xDataLabels[0].value;
+        const yData = yDataset[0].value;
+        if (xDataLabel && yData) {
+            console.log("add inputs to add data");
+            addGraphRow(xParentRow, "xDataLabel", xDataLabels);
+            addGraphRow(yParentRow, "yDataset", yDataset);
+        }
+        else {
+            alert("Please add an X and Y value");
+        }
+    });
+}
+
+// function to add rows to form of graph maker
+function addGraphRow(parent, rowClass, datavalue) {
+    const div = document.createElement("div");
+    const input = document.createElement("input");
+    const deleteButton = document.createElement("button");
+    deleteButton.innerText = "-";
+    div.className = "formRow newGraphRow";
+    input.className = `formInput ${rowClass}`;
+    input.value = datavalue[0].value;
+    deleteButton.className = "deleteLabelButton"
+    div.appendChild(input);
+    div.appendChild(deleteButton);
+    parent.appendChild(div);
+    datavalue[0].value = "";
+}
+
+// function to get the graph url and put it in the pic div/container
 function getGraph() {
     const getGraphButton = document.querySelector("#getGraphButton");
-    const chartType = document.querySelector("#chartType");
-    const dataLabels = document.querySelector("#dataLabels");
-    const datasetLabels = document.querySelector("#datasetLabels");
-    const datasetData = document.querySelector("#datasetData");
     const picContainer = document.querySelector("#picContainer");
     getGraphButton.addEventListener("click", async () => {
+        // get all the data from the graph from after user clicks on button
+        const chartType = document.querySelector("#chartType");
+        const datasetLabels = document.querySelectorAll(".datasetLabelClass");
+        const dataLabels = document.querySelectorAll(".xDataLabel");
+        const datasetData = document.querySelectorAll(".yDataset");
         const browserWidth  = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-        // const browserHeight = window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight;   only using the width to adjust the size of the graph
-        let chartTypeValue = chartType.value;
-        let dataLabelsValue = dataLabels.value;
-        let datasetLabelsValue = datasetLabels.value;
-        let datasetDataValue = datasetData.value;
         let graphWidth = 480;                                                    // width of image/graph
         let graphHeight = 288;                                                   // height of image/graph
         if ( browserWidth < 690 ) {
             graphWidth = browserWidth * 0.65;                                    // adjust to the width of the browser
-            graphHeight = browserWidth * 0.6;                                    // height is 3/5 of the width
+            graphHeight = graphWidth * 0.6;                                      // height is 3/5 of the width
         }
-        // let request = await axios.get(`https://quickchart.io/chart?chart={type: 'bar', data: {labels: ['Q1', 'Q2', 'Q3', 'Q4'], datasets: [{label: 'Revenue',data: [100, 200, 300, 400]}, {label: 'Tax',data: [10, 20, 30, 40]}]}}&backgroundColor=white&width=500&height=300&devicePixelRatio=1.0&format=png&version=2.9.3"`);
-        // console.log(request);
-        picContainer.innerHTML = `<img src="https://quickchart.io/chart?chart={type: '${chartTypeValue}', data: {labels: ['${dataLabelsValue}'], datasets: [{label: '${datasetLabelsValue}',data: [${datasetDataValue}]}]}}&backgroundColor=whitesmoke&width=${graphWidth}&height=${graphHeight}&devicePixelRatio=1.0&format=png&version=2.9.3" alt=""></img>`;
+        let chartTypeValue = chartType.value;
+        // seperate the data labels with "'"
+        let datasetDataValue = ``;
+        for (let i = 0; i < datasetData.length; i++) {
+            datasetDataValue += `'${datasetData[i].value}'`;
+            if ( i + 1 < datasetData.length) {
+                datasetDataValue += `, `;
+            }
+        }
+        // seperate the data labels with "'" 
+        let dataLabelsValue = ``;
+        for (let i = 0; i < dataLabels.length; i++) {
+            dataLabelsValue += `'${dataLabels[i].value}'`;
+            if (i + 1 < dataLabels.length) {
+                dataLabelsValue += `, `;
+            }
+        }
+        let graphUrl = `<img src="https://quickchart.io/chart?chart={type: '${chartTypeValue}', data: {labels: [${dataLabelsValue}], datasets: [`;
+        for (let i = 0; i < datasetLabels.length; i++) {
+            graphUrl += `{label: '${datasetLabels[i].value}',data: [${datasetDataValue}]}`;
+            if (i + 1 < datasetLabels.length) {
+                graphUrl += `,`;
+            }
+        }
+        graphUrl += `]}}&backgroundColor=whitesmoke&width=${graphWidth}&height=${graphHeight}&devicePixelRatio=1.0&format=png&version=2.9.3" alt=""></img>`;
+        console.log(graphUrl);
+        //console.log(`https://quickchart.io/chart?chart={type: 'bar', data: {labels: ['Q1', 'Q2', 'Q3', 'Q4'], datasets: [{label: 'Revenue',data: [100, 200, 300, 400]}, {label: 'Tax',data: [10, 20, 30, 40]}]}}&backgroundColor=white&width=500&height=300&devicePixelRatio=1.0&format=png&version=2.9.3`);
+        picContainer.innerHTML = graphUrl;
     });
 }
 
@@ -281,4 +368,6 @@ startSimonSays();
 createSimonSays();
 createBettingCalculator();
 clearCalculator();
+activeGraphButtons();
+addGraphData();
 getGraph();

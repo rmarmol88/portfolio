@@ -119,6 +119,29 @@ button {
   margin-bottom: 3px;
 }
 
+.datasetLabelClass,
+.newGraphRow input {
+  width: 161px;
+}
+
+#addDatasetLabel,
+.deleteLabelButton {
+  width: 30px;
+  color: grey;
+  background-color: white;
+  border: 1px solid grey;
+  margin-left: auto;
+}
+
+.deleteLabelButton {
+  margin-left: 10px;
+}
+
+.newGraphRow {
+  display: flex;
+  justify-content: flex-end;
+}
+
 @media (max-width: 768px) {
   .formInput, 
   .projectForm,
@@ -126,5 +149,10 @@ button {
     box-sizing: border-box;
     width: 100%;
   }
-
+  #datasetLabels {
+    width: 85%;
+  }
+  #addDatasetLabel {
+    width: 11%;
+  }
 }
