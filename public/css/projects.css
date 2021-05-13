@@ -9,6 +9,16 @@ button {
   width: 100%;
 }
 
+/* buttons to select the project */
+#projectSelectionDiv {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.projectSelectors {
+  width: 200px;
+}
+
 /* Simon says styling */
 #simonSaysButtonRow {
   display: flex;
@@ -149,10 +159,21 @@ button {
     box-sizing: border-box;
     width: 100%;
   }
-  #datasetLabels {
-    width: 85%;
-  }
+
   #addDatasetLabel {
-    width: 11%;
+    margin-left: 10px;
+  }
+
+  #datasetLabelsSpan {
+    display: flex;
+    justify-content: flex-end;
+  }  
+
+  #datasetLabels {
+    width: 100%;
+  }
+
+  .newGraphRow input {
+    width: 100%;
   }
 }

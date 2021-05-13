@@ -22,6 +22,33 @@ function activateProjects() {
     projectNavLi.classList.toggle("activeLi");
 }
 
+function hideShowProjects() {
+    const simonsaysContainer = document.querySelector("#simonsaysContainer");
+    const bettingCalculatorContainer = document.querySelector("#bettingCalculatorContainer");
+    const graphGeneratorContainer = document.querySelector("#graphGeneratorContainer");
+    const simonSaysSelectButton = document.querySelector("#simonSaysSelectButton");
+    const graphGenSelectButton = document.querySelector("#graphGenSelectButton");
+    const bettingCalcSelectButton = document.querySelector("#bettingCalcSelectButton");
+    // hide the inactive projects
+    bettingCalculatorContainer.style.display = "none";
+    graphGeneratorContainer.style.display = "none";
+    simonSaysSelectButton.addEventListener("click", () => {
+        bettingCalculatorContainer.style.display = "none";
+        graphGeneratorContainer.style.display = "none";
+        simonsaysContainer.style.display = "flex";
+    });
+    graphGenSelectButton.addEventListener("click", () => {
+        simonsaysContainer.style.display = "none";
+        bettingCalculatorContainer.style.display = "none";
+        graphGeneratorContainer.style.display = "flex";
+    });
+    bettingCalcSelectButton.addEventListener("click", () =>{
+        simonsaysContainer.style.display = "none";
+        graphGeneratorContainer.style.display = "none";
+        bettingCalculatorContainer.style.display = "flex";
+    })
+}
+
 function startSimonSays() {
     const startButton = document.querySelector("#startSimonsays"); 
     const simonSaysLabel = document.querySelector("#simonSaysLabel");
@@ -238,8 +265,9 @@ function createBettingCalculator() {
 // variables and function to clear the calculator
 function clearCalculator(){
     const clearCalcButton = document.querySelector("#clearCalcButton");
-    const calcInputs = document.querySelectorAll(".calcInput");
     clearCalcButton.addEventListener("click", () => {
+        const calcInputs = document.querySelectorAll(".calcInput");
+        console.log(calcInputs);
         for (let input of calcInputs) {
             input.value = "";
         }
@@ -365,6 +393,7 @@ function randomNumber(max) {
 }
 
 activateProjects();
+hideShowProjects();
 startSimonSays();
 createSimonSays();
 createBettingCalculator();

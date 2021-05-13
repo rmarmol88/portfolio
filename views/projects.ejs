@@ -2,9 +2,16 @@
 <%- include("partials/myNavbar") %>
 
 <div class="mainContainer">
-    <h2 class="firstElement">Projects</h2>
+    <div id="projectsHeader" class="firstElement">
+        <h2>Projects</h2>
+        <div id="projectSelectionDiv">
+            <button id="simonSaysSelectButton" class="projectSelectors">SIMON SAYS</button>
+            <button id="graphGenSelectButton" class="projectSelectors">GRAPH GENERATOR</button>
+            <button id="bettingCalcSelectButton" class="projectSelectors">BETTING CALCULATOR</button>
+        </div>
+    </div>
     <p>Find my projects on <a href="https://github.com/rmarmol88?tab=repositories" target="_blank">github</a></p>
-    <div id="simonsaysContainer" class="projectsContainer">
+    <div id="simonsaysContainer" class="projectsContainer fadeIn">
         <h3 id="simonSaysLabel">Play Simon Says</h3>
         <div id="simonSaysForm" class="projectForm">
             <div class="formRow">
@@ -20,26 +27,26 @@
             </div>
         </div>
     </div>   
-    <div id="bettingCalculatorContainer" class="projectsContainer">
+    <div id="bettingCalculatorContainer" class="projectsContainer fadeIn">
         <h3 id="bettingCalculatorLabel" class="containerLabel">Betting Calculator</h3>
         <div id="bettingCalculator" class="projectForm">
             <div class="formRow">
                 <label for="betOdd">What odd are you getting?</label>                 
-                <input id="betOdd" class="formInput" type="text">
+                <input id="betOdd" class="formInput calcInput" type="text">
             </div>
             <div class="formRow">
                 <label for="impliedOdds">Your implied odds:</label>
-                <input id="impliedOdds" class="formInput disabled" type="text" disabled="disabled">
+                <input id="impliedOdds" class="formInput calcInput disabled" type="text" disabled="disabled">
             </div>
             <div class="formRow">
-                <input id="usersEdge" class="formInput disabled" type="text" disabled="disabled">
+                <input id="usersEdge" class="formInput calcInput disabled" type="text" disabled="disabled">
             </div>
             <div class="formRow">
                 <button id="clearCalcButton" onclick="this.blur();">CLEAR</button>
             </div>
         </div>
     </div> 
-    <div class="projectsContainer">
+    <div id="graphGeneratorContainer" class="projectsContainer fadeIn">
         <h3 id="graphGeneratorLabel" class="containerLabel" >Graph Generator</h3>
         <div id="graphGenerator" class="projectForm">
             <div class="formRow">
@@ -53,8 +60,10 @@
             <div id="parentRow">
                 <div id="datasetRow" class="formRow">
                     <label for="datasetLabels">Dataset Label:</label>
-                    <input id="datasetLabels" class="formInput datasetLabelClass" type="text" placeholder="Food" required>
-                    <button id="addDatasetLabel" onclick="this.blur()">+</button>
+                    <span id="datasetLabelsSpan">
+                        <input id="datasetLabels" class="formInput datasetLabelClass" type="text" placeholder="Food" required>
+                        <button id="addDatasetLabel" onclick="this.blur()">+</button>
+                    </span>
                 </div>
             </div>
             <div id="xParentRow">
