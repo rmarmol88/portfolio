@@ -29,20 +29,45 @@ function hideShowProjects() {
     const simonSaysSelectButton = document.querySelector("#simonSaysSelectButton");
     const graphGenSelectButton = document.querySelector("#graphGenSelectButton");
     const bettingCalcSelectButton = document.querySelector("#bettingCalcSelectButton");
+    const buttonArray = [simonSaysSelectButton,graphGenSelectButton, bettingCalcSelectButton]
     // hide the inactive projects
     bettingCalculatorContainer.style.display = "none";
     graphGeneratorContainer.style.display = "none";
     simonSaysSelectButton.addEventListener("click", () => {
+        for (let button of buttonArray) {
+            if (button == simonSaysSelectButton) {
+                button.classList.add("activeProject");
+            }
+            else {
+                button.classList.remove("activeProject");
+            }
+        }
         bettingCalculatorContainer.style.display = "none";
         graphGeneratorContainer.style.display = "none";
         simonsaysContainer.style.display = "flex";
     });
     graphGenSelectButton.addEventListener("click", () => {
+        for (let button of buttonArray) {
+            if (button == graphGenSelectButton) {
+                button.classList.add("activeProject");
+            }
+            else {
+                button.classList.remove("activeProject");
+            }
+        }
         simonsaysContainer.style.display = "none";
         bettingCalculatorContainer.style.display = "none";
         graphGeneratorContainer.style.display = "flex";
     });
     bettingCalcSelectButton.addEventListener("click", () =>{
+        for (let button of buttonArray) {
+            if (button == bettingCalcSelectButton) {
+                button.classList.add("activeProject");
+            }
+            else {
+                button.classList.remove("activeProject");
+            }
+        }
         simonsaysContainer.style.display = "none";
         graphGeneratorContainer.style.display = "none";
         bettingCalculatorContainer.style.display = "flex";

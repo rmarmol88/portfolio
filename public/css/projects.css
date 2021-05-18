@@ -17,6 +17,13 @@ button {
 
 .projectSelectors {
   width: 200px;
+  background-color: lightgrey;
+  color: black;
+}
+
+.activeProject {
+  background-color: teal;
+  color: white;
 }
 
 /* Simon says styling */
@@ -153,6 +160,15 @@ button {
 }
 
 @media (max-width: 768px) {
+  #projectSelectionDiv {
+    flex-direction: column;
+  }
+
+  .projectSelectors {
+    width: 100%;
+    margin-bottom: 2px;
+  }
+
   .formInput, 
   .projectForm,
   #chartType {

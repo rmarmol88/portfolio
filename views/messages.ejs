@@ -16,17 +16,17 @@
                 <th>message</th>
             </tr>
         </thead>
-    <tbody>
-    <% for (let message of messages){ %>
-        <tr>
-            <td class="checkbox"><input value="<%= message._id %>" type="checkbox"></td>
-            <td class="fname"><%= message.fname %></td>
-            <td class="lname"><%= message.lname %></td>
-            <td class="email"><%= message.email %></td>
-            <td class="message"><%= message.message %></td>
-        </tr>  
-    <% } %>
-    </tbody>  
+        <tbody>
+            <% for (let message of messages){ %>
+                <tr>
+                    <td class="checkbox"><input value="<%= message._id %>" type="checkbox"></td>
+                    <td class="fname"><%= message.fname %></td>
+                    <td class="lname"><%= message.lname %></td>
+                    <td class="email"><%= message.email %></td>
+                    <td class="message"><%= message.message %></td>
+                </tr>  
+            <% } %>
+        </tbody>  
     </table>
 </div>
 
